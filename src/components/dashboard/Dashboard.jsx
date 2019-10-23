@@ -1,11 +1,20 @@
-import React from 'react'
+import React from 'react';
+import { withStyles } from '@material-ui/core/styles';
 
-const Dashboard = () => {
+const styles = () => ({
+    root: {
+
+    },
+});
+
+
+const Dashboard = (props) => {
+    const { classes } = props;
     return (
-        <div>
+        <div className={classes.root}>
             <h1>Dashboard</h1>
         </div>
     )
 }
 
-export default Dashboard;
+export default (withStyles(styles)(Dashboard));
