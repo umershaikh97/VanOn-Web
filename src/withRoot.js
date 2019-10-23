@@ -18,10 +18,10 @@ const theme = createMuiTheme({
             main: '#ff0000',
         },
     },
-    // typography: {
-    //     fontFamily: ['Roboto', '"Helvetica Neue"', 'Arial', 'sans-serif'].join(','),
-    //     color: '#4A4A4A',
-    // },
+    typography: {
+        fontFamily: ['Roboto', '"Helvetica Neue"', 'Arial', 'sans-serif'].join(','),
+        color: '#4A4A4A',
+    },
 });
 
 // console.log('THEME', theme); // eslint-disable-line no-console
