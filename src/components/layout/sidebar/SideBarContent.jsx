@@ -1,5 +1,5 @@
 // import libs
-import React from 'react';
+import React, { useState } from 'react';
 // import material
 import { withStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -28,13 +28,7 @@ const styles = ({ palette }) => ({
     },
     itemText: {
         marginLeft: 15,
-    },
-    selected: {
-        backgroundColor: '#4a4a4a !important',
-        color: '#ffffff',
-        '& > div > div p': {
-            color: '#ffffff'
-        },
+        color: '#BAC4CE',
     },
     subSelected: {
         backgroundColor: 'rgba(0, 0, 0, 0.22)',
@@ -46,15 +40,18 @@ const styles = ({ palette }) => ({
     },
 });
 
+
+
+
 const SideBarContent = (props) => {
     const { classes, history } = props;
-
+    const [selectedItem, setSelectedItem] = useState(history.location.pathname);
     return (
         <div className="container" style={{ maxHeight: `calc(100vh - 100px)` }}>
             <MenuItem
                 button={true}
-                onClick={() => history.push('/dashboard')}
-                //selected={selectedItem.includes('dashboard')}
+                onClick={() => { history.push('/dashboard'); setSelectedItem('dashboard') }}
+                selected={selectedItem.includes('dashboard')}
                 className={classes.listItem}
                 classes={{ selected: classes.subSelected }}
             >
@@ -65,8 +62,8 @@ const SideBarContent = (props) => {
             </MenuItem>
             <MenuItem
                 button={true}
-                onClick={() => history.push('/messages')}
-                //selected={selectedItem.includes('dashboard')}
+                onClick={() => { history.push('/messages'); setSelectedItem('messages') }}
+                selected={selectedItem.includes('messages')}
                 className={classes.listItem}
                 classes={{ selected: classes.subSelected }}
             >
@@ -77,8 +74,8 @@ const SideBarContent = (props) => {
             </MenuItem>
             <MenuItem
                 button={true}
-                onClick={() => history.push('/profile')}
-                //selected={selectedItem.includes('dashboard')}
+                onClick={() => { history.push('/profile'); setSelectedItem('profile') }}
+                selected={selectedItem.includes('profile')}
                 className={classes.listItem}
                 classes={{ selected: classes.subSelected }}
             >
@@ -89,8 +86,10 @@ const SideBarContent = (props) => {
             </MenuItem>
             <MenuItem
                 button={true}
-                onClick={() => history.push('/settings')}
-                //selected={selectedItem.includes('dashboard')}
+                onClick={() => {
+                    history.push('/settings'); setSelectedItem('settings')
+                }}
+                selected={selectedItem.includes('settings')}
                 className={classes.listItem}
                 classes={{ selected: classes.subSelected }}
             >
@@ -98,11 +97,11 @@ const SideBarContent = (props) => {
                     <Settings />
                     <span className={classes.itemText}>Settings</span>
                 </div>
-            </MenuItem>
+            </MenuItem >
             <MenuItem
                 button={true}
-                onClick={() => history.push('/help')}
-                //selected={selectedItem.includes('dashboard')}
+                onClick={() => { history.push('/help'); setSelectedItem('help') }}
+                selected={selectedItem.includes('help')}
                 className={classes.listItem}
                 classes={{ selected: classes.subSelected }}
             >
@@ -110,11 +109,11 @@ const SideBarContent = (props) => {
                     <HelpBox />
                     <span className={classes.itemText}>Help</span>
                 </div>
-            </MenuItem>
+            </MenuItem >
             <MenuItem
                 button={true}
-                onClick={() => history.push('/login')}
-                //selected={selectedItem.includes('dashboard')}
+                onClick={() => { history.push('/login'); setSelectedItem('login') }}
+                selected={selectedItem.includes('login')}
                 className={classes.listItem}
                 classes={{ selected: classes.subSelected }}
             >
@@ -122,8 +121,8 @@ const SideBarContent = (props) => {
                     <LogoutVariant />
                     <span className={classes.itemText}>Logout</span>
                 </div>
-            </MenuItem>
-        </div>
+            </MenuItem >
+        </div >
     );
 }
 
