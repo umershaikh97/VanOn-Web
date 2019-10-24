@@ -18,14 +18,16 @@ const AppRoutes = () => {
             <>
                 <TitleBar />
                 <SideBar />
-                <div style={{ marginLeft: 252, }}>
-                    <ProtectedRoutes exact path="/" component={Dashboard} />
-                    <ProtectedRoutes path="/dashboard" component={Dashboard} />
-                    <ProtectedRoutes path="/messages" component={Messages} />
-                    <ProtectedRoutes path="/profile" component={Profile} />
-                    <ProtectedRoutes path="/settings" component={Settings} />
-                    <ProtectedRoutes path="/help" component={Help} />
-                    <Redirect to="/" />
+                <div style={{ marginLeft: '250px', }}>
+                    <Switch>
+                        <ProtectedRoutes exact path="/" component={Dashboard} />
+                        <ProtectedRoutes path="/dashboard" component={Dashboard} />
+                        <ProtectedRoutes path="/messages" component={Messages} />
+                        <ProtectedRoutes path="/profile" component={Profile} />
+                        <ProtectedRoutes path="/settings" component={Settings} />
+                        <ProtectedRoutes path="/help" component={Help} />
+                        <Redirect to="/" />
+                    </Switch>
                 </div>
             </>
             <Redirect to="/login" />

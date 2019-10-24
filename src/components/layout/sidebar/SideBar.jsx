@@ -92,8 +92,8 @@ const SideBar = (props) => {
     const { classes } = props;
     return (
         <div className={classes.sideBar}>
-            <div>
-                <ExpansionPanel expanded={true} style={{ borderRadius: '2px' }} >
+            <div style={{ marginTop: 2 }}>
+                <ExpansionPanel expanded={true} style={{ borderRadius: '0px' }} >
                     <ExpansionPanelSummary>
                         <div>
                             <div style={{ display: 'inline-flex', width: '80%' }}>
