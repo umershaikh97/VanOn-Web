@@ -13,25 +13,27 @@ import SideBar from '../components/layout/sidebar/SideBar';
 
 const AppRoutes = () => {
     return (
-        <Switch>
-            <Route path="/login" component={Login} />
-            <>
-                <TitleBar />
-                <SideBar />
-                <div style={{ marginLeft: '250px', }}>
-                    <Switch>
-                        <ProtectedRoutes exact path="/" component={Dashboard} />
-                        <ProtectedRoutes path="/dashboard" component={Dashboard} />
-                        <ProtectedRoutes path="/messages" component={Messages} />
-                        <ProtectedRoutes path="/profile" component={Profile} />
-                        <ProtectedRoutes path="/settings" component={Settings} />
-                        <ProtectedRoutes path="/help" component={Help} />
-                        <Redirect to="/" />
-                    </Switch>
-                </div>
-            </>
-            <Redirect to="/login" />
-        </Switch>
+        <>
+            <TitleBar />
+            <Switch>
+                <Route path="/login" component={Login} />
+                <>
+                    <SideBar />
+                    <div style={{ paddingLeft: '250px', }}>
+                        <Switch>
+                            <ProtectedRoutes exact path="/" component={Dashboard} />
+                            <ProtectedRoutes path="/dashboard" component={Dashboard} />
+                            <ProtectedRoutes path="/messages" component={Messages} />
+                            <ProtectedRoutes path="/profile" component={Profile} />
+                            <ProtectedRoutes path="/settings" component={Settings} />
+                            <ProtectedRoutes path="/help" component={Help} />
+                            <Redirect to="/" />
+                        </Switch>
+                    </div>
+                </>
+                <Redirect to="/login" />
+            </Switch>
+        </>
     );
 }
 

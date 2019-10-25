@@ -1,11 +1,9 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
+import { ROOT_STYLE } from '../../utils/cssConstants';
 
 const styles = () => ({
-    root: {
-        height: 'calc(100vh - 64px)',
-        width: '100%',
-    },
+    root: ROOT_STYLE,
 });
 
 
