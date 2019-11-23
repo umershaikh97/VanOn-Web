@@ -3,7 +3,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { ROOT_STYLE } from '../../utils/cssConstants';
 
 const styles = () => ({
-    root: ROOT_STYLE
+    root: ROOT_STYLE,
 });
 
 
