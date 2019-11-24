@@ -107,95 +107,114 @@ const styles = () => ({
         color: 'red',
         fontWeight: 'bold',
     }
-
 });
 
 
 const Login = (props) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [rememberMe, setRemember] = useState(false);
     const { classes, loginError } = props;
 
     const handleSubmit = (e) => {
-        e.preventDefault();
         props.login({ username, password })
         if (props.isAuthenticated) {
+            if (rememberMe) {
+                localStorage.setItem('username', username);
+                localStorage.setItem('password', password);
+            }
             props.clearAuthReducer()
             props.history.push('/dashboard')
         }
         else {
+            console.log("d")
             setTimeout(() => {
                 props.clearAuthReducer()
             }, 3000)
         }
     }
 
+    // Did Mount
     useEffect(() => {
         props.logout();
+        if (localStorage.getItem('username') && localStorage.getItem('password')) {
+            setUsername(localStorage.getItem('username'));
+            setPassword(localStorage.getItem('password'));
+        }
     }, [])
 
-    return (
-        <div className={classes.root}>
-            <div className={classes.whiteCard}>
-                <div className={classes.whiteCardLeft}>
-                    <img src={VanOnLogo} alt={"VanOnLogo"} className={classes.vanOnLogo} />
-                    <img src={VanOnTypo} alt={"VanOnTypo"} className={classes.vanOnTypo} />
-                </div>
-                <div className={classes.whiteCardRight}>
-                    <div className={classes.formContainer} >
-                        <div className={classes.textField} >
-                            <TextField
-                                autoFocus name="username" id="username" placeholder='Username'
-                                onChange={(e) => { setUsername(e.target.value) }} onKeyPress={() => { }}
-                                className={classes.formInput} value={username}
-                                InputProps={{
-                                    startAdornment: (
-                                        <InputAdornment position="start" style={{ marginLeft: '10px', marginRight: '11px', color: '#BAC4CE' }}>
-                                            <FontAwesomeIcon icon={faUser} />
-                                        </InputAdornment>
-                                    )
-                                }}
-                            />
-                        </div>
-                        <div className={classes.textField}>
-                            <TextField
-                                id="pwd"
-                                name="password"
-                                placeholder='Password'
-                                onChange={(e) => { setPassword(e.target.value) }}
-                                onKeyPress={() => { }}
-                                type="password"
-                                className={classes.formInput} value={password}
-                                InputProps={{
-                                    startAdornment: (
-                                        <InputAdornment position="start" style={{ marginLeft: '10px', marginRight: '11px', color: '#BAC4CE' }} >
-                                            <FontAwesomeIcon icon={faLock} />
-                                        </InputAdornment>
-                                    )
-                                }}
-                            />
-                        </div>
+    if (props.isAuthenticated) {
+        if (rememberMe) {
+            localStorage.setItem('username', username);
+            localStorage.setItem('password', password);
+        }
+        props.clearAuthReducer()
+        props.history.push('/dashboard')
+        return (<></>)
+    }
+    else {
+        return (
+            <div className={classes.root}>
+                <div className={classes.whiteCard}>
+                    <div className={classes.whiteCardLeft}>
+                        <img src={VanOnLogo} alt={"VanOnLogo"} className={classes.vanOnLogo} />
+                        <img src={VanOnTypo} alt={"VanOnTypo"} className={classes.vanOnTypo} />
+                    </div>
+                    <div className={classes.whiteCardRight}>
+                        <div className={classes.formContainer} >
+                            <div className={classes.textField} >
+                                <TextField
+                                    autoFocus name="username" id="username" placeholder='Username'
+                                    onChange={(e) => { setUsername(e.target.value) }}
+                                    className={classes.formInput} value={username}
+                                    InputProps={{
+                                        startAdornment: (
+                                            <InputAdornment position="start" style={{ marginLeft: '10px', marginRight: '11px', color: '#BAC4CE' }}>
+                                                <FontAwesomeIcon icon={faUser} />
+                                            </InputAdornment>
+                                        )
+                                    }}
+                                />
+                            </div>
+                            <div className={classes.textField}>
+                                <TextField
+                                    id="pwd"
+                                    name="password"
+                                    placeholder='Password'
+                                    onChange={(e) => { setPassword(e.target.value) }}
+                                    type="password"
+                                    className={classes.formInput} value={password}
+                                    InputProps={{
+                                        startAdornment: (
+                                            <InputAdornment position="start" style={{ marginLeft: '10px', marginRight: '11px', color: '#BAC4CE' }} >
+                                                <FontAwesomeIcon icon={faLock} />
+                                            </InputAdornment>
+                                        )
+                                    }}
+                                />
+                            </div>
 
-                        {loginError && <p className={classes.error}>{loginError}</p>}
+                            {loginError && <p className={classes.error}>{loginError}</p>}
 
-                        <div className={classes.formGroup}>
-                            <FormControlLabel
-                                control={<Checkbox value="RememberMe" onChange={() => { }} className={classes.checkBoxRoot} />}
-                                label="Remember Me" classes={{ label: classes.rememberMeLabel }}
-                            />
-                            <Typography variant="body1" className={classes.forgotPasswordTxt} onClick={() => { }} >
-                                Forgot Password?
+                            <div className={classes.formGroup}>
+                                <FormControlLabel
+                                    control={<Checkbox value={rememberMe} onChange={() => { setRemember(!rememberMe) }} className={classes.checkBoxRoot} />}
+                                    label="Remember Me" classes={{ label: classes.rememberMeLabel }}
+                                />
+                                <Typography variant="body1" className={classes.forgotPasswordTxt} onClick={() => { console.log(rememberMe) }} >
+                                    Forgot Password?
                             </Typography>
-                        </div>
-                        <Button className={classes.raisedBtn} color="primary" onClick={handleSubmit}
-                            disabled={username.length < 1 || password.length < 5} classes={{ disabled: classes.loginDisabled }} >
-                            Log in
+                            </div>
+                            <Button className={classes.raisedBtn} color="primary" onClick={handleSubmit}
+                                disabled={username.length < 1 || password.length < 5} classes={{ disabled: classes.loginDisabled }} >
+                                Log in
                         </Button>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div >
-    )
+            </div >
+        )
+    }
 }
 
 const mapStateToProps = (state) => {
