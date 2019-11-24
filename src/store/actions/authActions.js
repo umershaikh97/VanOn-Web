@@ -42,3 +42,21 @@
 //         }
 //     };
 // };
+
+export const login = (loginDetails) => {
+    return (dispatch, getState) => {
+        dispatch({ type: 'LOGIN', payload: loginDetails })
+    };
+};
+
+export const logout = () => {
+    return (dispatch, getState) => {
+        dispatch({ type: 'LOGOUT' })
+    };
+};
+
+export const clearAuthReducer = () => {
+    return (dispatch, getState) => {
+        dispatch({ type: 'CLEAR_AUTH_REDUCER' })
+    };
+};
