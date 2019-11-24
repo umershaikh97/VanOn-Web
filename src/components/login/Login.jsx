@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { ROOT_STYLE } from '../../utils/cssConstants';
 import VanOnLogo from '../../assets/VanOn_LogoMark.png';
@@ -11,6 +11,8 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { faUser, faLock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { login, clearAuthReducer, logout } from '../../store/actions/authActions';
+import { connect } from 'react-redux';
 
 const styles = () => ({
     root: {
@@ -103,22 +105,34 @@ const styles = () => ({
     },
     error: {
         color: 'red',
+        fontWeight: 'bold',
     }
 
 });
 
 
 const Login = (props) => {
-    const [error, setError] = useState('abcd');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [role, setRole] = useState('')
-    const { classes } = props;
+    const { classes, loginError } = props;
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(username, password, role)
+        props.login({ username, password })
+        if (props.isAuthenticated) {
+            props.clearAuthReducer()
+            props.history.push('/dashboard')
+        }
+        else {
+            setTimeout(() => {
+                props.clearAuthReducer()
+            }, 3000)
+        }
     }
+
+    useEffect(() => {
+        props.logout();
+    }, [])
 
     return (
         <div className={classes.root}>
@@ -162,7 +176,7 @@ const Login = (props) => {
                             />
                         </div>
 
-                        {error && <p className={classes.error}>{'abc'}</p>}
+                        {loginError && <p className={classes.error}>{loginError}</p>}
 
                         <div className={classes.formGroup}>
                             <FormControlLabel
@@ -184,4 +198,18 @@ const Login = (props) => {
     )
 }
 
-export default (withStyles(styles)(Login));
+const mapStateToProps = (state) => {
+    return {
+        loginError: state.authReducer.loginError,
+        isAuthenticated: state.authReducer.isAuthenticated,
+    }
+}
+const mapDispatchToProps = (dispatch) => {
+    return {
+        login: (...args) => dispatch(login(...args)),
+        logout: (...args) => dispatch(logout(...args)),
+        clearAuthReducer: (...args) => dispatch(clearAuthReducer(...args))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Login));
