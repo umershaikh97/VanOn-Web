@@ -19,7 +19,7 @@ const AppRoutes = () => {
                 <Route path="/login" component={Login} />
                 <>
                     <SideBar />
-                    <div style={{ paddingLeft: '250px', }}>
+                    <div style={{ paddingLeft: '250px' }}>
                         <Switch>
                             <ProtectedRoutes exact path="/" component={Dashboard} />
                             <ProtectedRoutes path="/dashboard" component={Dashboard} />
