@@ -24,7 +24,6 @@ const theme = createMuiTheme({
     },
 });
 
-// console.log('THEME', theme); // eslint-disable-line no-console
 
 function withRoot(Component) {
     function WithRoot(props) {
