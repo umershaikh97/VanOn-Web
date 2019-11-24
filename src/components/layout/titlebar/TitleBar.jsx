@@ -34,11 +34,13 @@ const styles = () => ({
         width: '35px',
         height: '35px',
         borderRadius: '50%',
-        padding: 12,
+        padding: 5,
         background: '#75727b',
-        fontSize: 12,
-        color: '#fff',
+        fontSize: 20,
+        color: 'black',
+        fontWeight: 'bold',
         textAlign: 'center',
+        background: 'linear-gradient(to right, #616161, #9bc5c3)',
     }
 });
 
