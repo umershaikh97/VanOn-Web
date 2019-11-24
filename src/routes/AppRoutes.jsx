@@ -6,7 +6,7 @@ import Login from '../components/login/Login';
 import Settings from '../components/settings/Settings';
 import Profile from '../components/profile/Profile';
 import Messages from '../components/messages/Messages';
-import { ProtectedRoutes } from './ProtectedRoutes';
+import ProtectedRoutes from './ProtectedRoutes';
 import TitleBar from '../components/layout/titlebar/TitleBar';
 import SideBar from '../components/layout/sidebar/SideBar';
 
