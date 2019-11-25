@@ -9,6 +9,10 @@ import Messages from '../components/messages/Messages';
 import ProtectedRoutes from './ProtectedRoutes';
 import TitleBar from '../components/layout/titlebar/TitleBar';
 import SideBar from '../components/layout/sidebar/SideBar';
+import ManageDrivers from '../components/manage/ManageDrivers';
+import ManageVendors from '../components/manage/ManageVendors';
+import ManageAdmins from '../components/manage/ManageAdmins';
+import ManagePassengers from '../components/manage/ManagePassengers';
 
 
 const AppRoutes = () => {
@@ -22,11 +26,15 @@ const AppRoutes = () => {
                     <div style={{ paddingLeft: '250px' }}>
                         <Switch>
                             <ProtectedRoutes exact path="/" component={Dashboard} />
-                            <ProtectedRoutes path="/dashboard" component={Dashboard} />
-                            <ProtectedRoutes path="/messages" component={Messages} />
-                            <ProtectedRoutes path="/profile" component={Profile} />
-                            <ProtectedRoutes path="/settings" component={Settings} />
-                            <ProtectedRoutes path="/help" component={Help} />
+                            <ProtectedRoutes exact path="/dashboard" component={Dashboard} />
+                            <ProtectedRoutes exact path="/messages" component={Messages} />
+                            <ProtectedRoutes exact path="/profile" component={Profile} />
+                            <ProtectedRoutes exact path="/settings" component={Settings} />
+                            <ProtectedRoutes exact path="/help" component={Help} />
+                            <ProtectedRoutes exact path="/dashboard/drivers" component={ManageDrivers} />
+                            <ProtectedRoutes exact path="/dashboard/vendors" component={ManageVendors} />
+                            <ProtectedRoutes exact path="/dashboard/passengers" component={ManagePassengers} />
+                            <ProtectedRoutes exact path="/dashboard/admins" component={ManageAdmins} />
                             <Redirect to="/" />
                         </Switch>
                     </div>
