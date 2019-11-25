@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import MaterialTable from 'material-table';
+import React, { useState, useEffect } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 import { ROOT_STYLE } from '../../utils/cssConstants';
@@ -25,58 +24,21 @@ const ManageAdmins = (props) => {
     const [state, setState] = useState({
         headers: [
             { title: 'Name', field: 'name' },
-            { title: 'Email', field: 'email', type: 'email' },
+            { title: 'Email', field: 'email', type: 'string' },
             { title: 'Phone #', field: 'phone', type: 'number' },
             { title: 'CNIC', field: 'cnic' },
         ],
-        data: [
-            { name: 'Admin1', email: 'admin1@vanon.com', phone: 123, cnic: 614144443 },
-            { name: 'Admin2', email: 'admin2@vanon.com', phone: 123, cnic: 614144443 },
-        ],
+        data: [],
     });
 
-    const handleRowAdd = (newData) => {
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                {
-                    const temp = [...state.data];
-                    temp.push(newData);
-                    setState({ ...state, temp });
-                }
-                resolve();
-            }, 1000);
-        })
-
-    }
-
-    const handleRowUpdate = (newData, oldData) => {
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                {
-                    if (oldData) {
-                        const temp = [...state.data];
-                        temp[temp.indexOf(oldData)] = newData;
-                        setState({ ...state, temp });
-                    }
-                }
-                resolve();
-            }, 1000);
-        })
-    }
-
-    const handleRowDelete = (oldData) => {
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                {
-                    const temp = [...state.data];
-                    temp.splice(temp.indexOf(oldData), 1);
-                    setState({ ...state, temp });
-                }
-                resolve();
-            }, 1000);
-        })
-    }
-
+    //didMount
+    useEffect(() => {
+        const data = [
+            { name: 'Admin1', email: 'admin1@vanon.com', phone: 123, cnic: 614144443 },
+            { name: 'Admin2', email: 'admin2@vanon.com', phone: 123, cnic: 614144443 },
+        ];
+        setState({ ...state, data })
+    }, [])
 
 
     return (
@@ -86,17 +48,6 @@ const ManageAdmins = (props) => {
 
                 <Table
                     headers={state.headers}
-                    data={state.data}
-                    editable={{
-                        onRowAdd: (newData) => { handleRowAdd(newData) },
-                        onRowUpdate: (newData, oldData) => { handleRowUpdate(newData, oldData) },
-                        onRowDelete: (oldData) => { handleRowDelete(oldData) }
-                    }}
-                />
-                {/* <MaterialTable
-                    title=""
-                    icons={tableIcons}
-                    columns={state.headers}
                     data={state.data}
                     editable={{
                         onRowAdd: newData =>
@@ -135,10 +86,7 @@ const ManageAdmins = (props) => {
                                 }, 600);
                             }),
                     }}
-                /> */}
-
-
-
+                />
             </div>
         </div>
     )
