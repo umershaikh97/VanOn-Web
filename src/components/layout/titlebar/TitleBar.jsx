@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 const styles = () => ({
     titleBarRoot: {
         height: 45,
-        width: '100%',
+        width: '100vw',
         backgroundColor: 'rgba(0, 0, 0, 0.7)',
         display: 'flex',
         justifyContent: 'space-between',
