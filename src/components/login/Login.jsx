@@ -127,7 +127,6 @@ const Login = (props) => {
             props.history.push('/dashboard')
         }
         else {
-            console.log("d")
             setTimeout(() => {
                 props.clearAuthReducer()
             }, 3000)
