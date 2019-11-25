@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 import { ROOT_STYLE } from '../../utils/cssConstants';
 import Table from '../table';
+import { updateAdminData } from '../../store/actions/adminActions';
 
 const styles = () => ({
     root: ROOT_STYLE,
@@ -20,7 +22,7 @@ const styles = () => ({
 
 
 const ManageAdmins = (props) => {
-    const { classes } = props;
+    const { classes, updateAdminData } = props;
     const [state, setState] = useState({
         headers: [
             { title: 'Name', field: 'name' },
@@ -33,11 +35,13 @@ const ManageAdmins = (props) => {
 
     //didMount
     useEffect(() => {
-        const data = [
-            { name: 'Admin1', email: 'admin1@vanon.com', phone: 123, cnic: 614144443 },
-            { name: 'Admin2', email: 'admin2@vanon.com', phone: 123, cnic: 614144443 },
-        ];
+        const data = [...props.data];
         setState({ ...state, data })
+
+        return () => {
+            //console.log(state)
+            //updateAdminData(state.data)
+        }
     }, [])
 
 
@@ -92,4 +96,19 @@ const ManageAdmins = (props) => {
     )
 }
 
-export default (withStyles(styles)(ManageAdmins));
+const mapStateToProps = (state) => {
+    return {
+        //loginError: state.authReducer.loginError,
+        data: state.adminReducer.data,
+    }
+}
+const mapDispatchToProps = (dispatch) => {
+    return {
+        updateAdminData: (...args) => dispatch(updateAdminData(...args))
+        // login: (...args) => dispatch(login(...args)),
+        // logout: (...args) => dispatch(logout(...args)),
+        // clearAuthReducer: (...args) => dispatch(clearAuthReducer(...args))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(ManageAdmins));

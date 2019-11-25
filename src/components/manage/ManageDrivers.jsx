@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 import { ROOT_STYLE } from '../../utils/cssConstants';
@@ -27,16 +28,17 @@ const ManageDrivers = (props) => {
             { title: 'Email', field: 'email', type: 'string' },
             { title: 'Phone #', field: 'phone', type: 'number' },
             { title: 'CNIC', field: 'cnic' },
+            { title: 'License #', field: 'license' },
+            { title: 'Van #', field: 'van' },
+            { title: 'Area', field: 'area' },
+            { title: 'Vendor ID', field: 'v_id' },
         ],
         data: [],
     });
 
     //didMount
     useEffect(() => {
-        const data = [
-            { name: 'Driver1', email: 'admin1@vanon.com', phone: 123, cnic: 614144443 },
-            { name: 'Driver2', email: 'admin2@vanon.com', phone: 123, cnic: 614144443 },
-        ];
+        const data = [...props.data];
         setState({ ...state, data })
     }, [])
 
@@ -92,4 +94,18 @@ const ManageDrivers = (props) => {
     )
 }
 
-export default (withStyles(styles)(ManageDrivers));
+const mapStateToProps = (state) => {
+    return {
+        //loginError: state.authReducer.loginError,
+        data: state.driverReducer.data,
+    }
+}
+const mapDispatchToProps = (dispatch) => {
+    return {
+        // login: (...args) => dispatch(login(...args)),
+        // logout: (...args) => dispatch(logout(...args)),
+        // clearAuthReducer: (...args) => dispatch(clearAuthReducer(...args))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(ManageDrivers));

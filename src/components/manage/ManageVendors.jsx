@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 import { ROOT_STYLE } from '../../utils/cssConstants';
@@ -32,10 +33,7 @@ const ManageVendors = (props) => {
 
     //didMount
     useEffect(() => {
-        const data = [
-            { name: 'Vendor1', email: 'admin1@vanon.com', phone: 123, cnic: 614144443 },
-            { name: 'Vendor2', email: 'admin2@vanon.com', phone: 123, cnic: 614144443 },
-        ];
+        const data = [...props.data];
         setState({ ...state, data })
     }, [])
 
@@ -91,4 +89,18 @@ const ManageVendors = (props) => {
     )
 }
 
-export default (withStyles(styles)(ManageVendors));
+const mapStateToProps = (state) => {
+    return {
+        //loginError: state.authReducer.loginError,
+        data: state.vendorReducer.data,
+    }
+}
+const mapDispatchToProps = (dispatch) => {
+    return {
+        // login: (...args) => dispatch(login(...args)),
+        // logout: (...args) => dispatch(logout(...args)),
+        // clearAuthReducer: (...args) => dispatch(clearAuthReducer(...args))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(ManageVendors));
