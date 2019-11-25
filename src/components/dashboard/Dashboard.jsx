@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import { ROOT_STYLE } from '../../utils/cssConstants';
 import Grid from '@material-ui/core/Grid';
@@ -33,8 +34,7 @@ const styles = (theme) => ({
 
 
 const Dashboard = (props) => {
-    const { classes } = props;
-    console.log(props)
+    const { classes, role } = props;
     return (
         <div className={classes.root}>
             <div className={classes.contentContainer}>
@@ -42,18 +42,38 @@ const Dashboard = (props) => {
                     <Typography variant="h3" inherit className={classes.Heading}>Manage</Typography>
                     <div className={classes.manageGridContainer}>
                         <Grid container spacing={4}>
-                            <Grid item xs={12} sm={3}>
-                                <ManageCard Icon={PermIdentityTwoToneIcon} text={"Manage Admins"} onClick={() => { props.history.push('/dashboard/admins') }} />
-                            </Grid>
-                            <Grid item xs={12} sm={3}>
-                                <ManageCard Icon={SupervisorAccountTwoToneIcon} text={"Manage Vendors"} onClick={() => { props.history.push('/dashboard/vendors') }} />
-                            </Grid>
-                            <Grid item xs={12} sm={3}>
-                                <ManageCard Icon={DriveEtaTwoToneIcon} text={"Manage Drivers"} onClick={() => { props.history.push('/dashboard/drivers') }} />
-                            </Grid>
-                            <Grid item xs={12} sm={3}>
-                                <ManageCard Icon={EmojiPeopleTwoToneIcon} text={"Manage Passengers"} onClick={() => { props.history.push('/dashboard/passengers') }} />
-                            </Grid>
+                            {
+                                role === 'admin' ?
+                                    (
+                                        <>
+                                            <Grid item xs={12} sm={3}>
+                                                <ManageCard Icon={PermIdentityTwoToneIcon} text={"Manage Admins"} onClick={() => { props.history.push('/dashboard/admins') }} />
+                                            </Grid>
+                                            <Grid item xs={12} sm={3}>
+                                                <ManageCard Icon={SupervisorAccountTwoToneIcon} text={"Manage Vendors"} onClick={() => { props.history.push('/dashboard/vendors') }} />
+                                            </Grid>
+                                            <Grid item xs={12} sm={3}>
+                                                <ManageCard Icon={DriveEtaTwoToneIcon} text={"Manage Drivers"} onClick={() => { props.history.push('/dashboard/drivers') }} />
+                                            </Grid>
+                                            <Grid item xs={12} sm={3}>
+                                                <ManageCard Icon={EmojiPeopleTwoToneIcon} text={"Manage Passengers"} onClick={() => { props.history.push('/dashboard/passengers') }} />
+                                            </Grid>
+                                        </>
+                                    )
+                                    :
+                                    (
+                                        <>
+
+                                            <Grid item xs={12} sm={6}>
+                                                <ManageCard Icon={DriveEtaTwoToneIcon} text={"Manage Drivers"} onClick={() => { props.history.push('/dashboard/drivers') }} />
+                                            </Grid>
+                                            <Grid item xs={12} sm={6}>
+                                                <ManageCard Icon={EmojiPeopleTwoToneIcon} text={"Manage Passengers"} onClick={() => { props.history.push('/dashboard/passengers') }} />
+                                            </Grid>
+                                        </>
+                                    )
+                            }
+
                         </Grid>
                     </div>
                 </div>
@@ -70,4 +90,19 @@ const Dashboard = (props) => {
     )
 }
 
-export default (withStyles(styles)(Dashboard));
+const mapStateToProps = (state) => {
+    return {
+        //loginError: state.authReducer.loginError,
+        role: state.authReducer.role,
+    }
+}
+const mapDispatchToProps = (dispatch) => {
+    return {
+        //updateAdminData: (...args) => dispatch(updateAdminData(...args))
+        // login: (...args) => dispatch(login(...args)),
+        // logout: (...args) => dispatch(logout(...args)),
+        // clearAuthReducer: (...args) => dispatch(clearAuthReducer(...args))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Dashboard));
