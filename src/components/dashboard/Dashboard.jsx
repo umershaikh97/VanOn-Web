@@ -27,7 +27,7 @@ const styles = (theme) => ({
     },
     mapContainer: {
         width: '100%',
-        height: 'calc(100vh - 320px)',
+        height: '650px',
         backgroundColor: 'white',
     }
 });
