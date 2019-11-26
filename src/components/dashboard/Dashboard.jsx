@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import { ROOT_STYLE } from '../../utils/cssConstants';
@@ -9,6 +9,7 @@ import SupervisorAccountTwoToneIcon from '@material-ui/icons/SupervisorAccountTw
 import DriveEtaTwoToneIcon from '@material-ui/icons/DriveEtaTwoTone';
 import EmojiPeopleTwoToneIcon from '@material-ui/icons/EmojiPeopleTwoTone';
 import ManageCard from './ManageCard';
+import Map from '../google maps/Map';
 
 const styles = (theme) => ({
     root: ROOT_STYLE,
@@ -32,9 +33,26 @@ const styles = (theme) => ({
     }
 });
 
+const GOOGLE_MAP_API_KEY = "AIzaSyA-41EtEUCUy54AwBKs9CdnsGJtD1NYMMI";
 
 const Dashboard = (props) => {
     const { classes, role } = props;
+    const [viewport, _setViewPort] = useState({
+        latitude: 24.814563,
+        longitude: 67.080013,
+        width: '100%',
+        height: '650px',
+        zoom: 10
+    });
+
+    const [vanData, setVanData] = useState([
+        { VAN_ID: '01', DriverName: 'Muhammad Bilal', VanNumPlate: 'BBW-1534', coordinates: [67.076030, 24.815351] },
+        { VAN_ID: '02', DriverName: 'Kumail Abbas', VanNumPlate: 'LAI-3224', coordinates: [67.045736, 24.857238] },
+        { VAN_ID: '03', DriverName: 'Hussain Feroz', VanNumPlate: 'BAA-1125', coordinates: [67.088510, 24.911562] },
+        { VAN_ID: '04', DriverName: 'Umer Shaikh', VanNumPlate: 'BCW-2628', coordinates: [67.079123, 24.814461] },
+    ])
+
+
     return (
         <div className={classes.root}>
             <div className={classes.contentContainer}>
@@ -82,7 +100,11 @@ const Dashboard = (props) => {
                 <div className={classes.trackingContainer}>
                     <Typography variant="h3" inherit className={classes.Heading}>Track Vans</Typography>
                     <div className={classes.mapContainer}>
-
+                        <Map
+                            viewport={viewport}
+                            setViewPort={(viewport) => { _setViewPort(viewport) }}
+                            vanData={vanData}
+                        />
                     </div>
                 </div>
             </div>
