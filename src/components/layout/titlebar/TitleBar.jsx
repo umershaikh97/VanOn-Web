@@ -61,7 +61,7 @@ const TitleBar = (props) => {
             <img src={vanOnlogo} className={classes.vanOnlogo} alt={'Van On logo'} onClick={() => { history.push('/dashboard') }} />
             {props.isAuthenticated && (
                 <div>
-                    <IconButton
+                    {/* <IconButton
                         aria-label="account of current user"
                         aria-controls="menu-appbar"
                         aria-haspopup="true"
@@ -87,7 +87,7 @@ const TitleBar = (props) => {
                         onClose={handleClose}
                     >
                         <MenuItem onClick={() => { handleClose(); props.history.push('/login') }}>Log out</MenuItem>
-                    </Menu>
+                    </Menu> */}
                 </div>
             )}
         </div>
