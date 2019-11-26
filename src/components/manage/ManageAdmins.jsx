@@ -38,10 +38,6 @@ const ManageAdmins = (props) => {
         const data = [...props.data];
         setState({ ...state, data })
 
-        return () => {
-            //console.log(state)
-            //updateAdminData(state.data)
-        }
     }, [])
 
 
