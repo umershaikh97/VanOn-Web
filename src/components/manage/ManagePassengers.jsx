@@ -28,6 +28,7 @@ const ManagePassengers = (props) => {
             { title: 'Email', field: 'email', type: 'string' },
             { title: 'Phone #', field: 'phone', type: 'number' },
             { title: 'CNIC', field: 'cnic' },
+            { title: 'Pickup point', field: 'pick', type: 'string' },
             { title: 'Status', field: 'status', lookup: { 1: 'Active', 2: 'Inactive' } }
         ],
         data: [],
