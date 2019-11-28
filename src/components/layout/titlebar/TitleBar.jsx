@@ -5,6 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import Modal from '../../modals/Modal';
 import { connect } from 'react-redux';
 
 const styles = () => ({
@@ -47,50 +48,68 @@ const styles = () => ({
 const TitleBar = (props) => {
     const { classes, history } = props;
     const [anchorEl, setAnchorEl] = React.useState(null);
+    const [modalOpen, setModalOpen] = React.useState(false);
     const open = Boolean(anchorEl);
 
     const handleMenu = event => {
         setAnchorEl(event.currentTarget);
     };
 
+    const handleCloseModal = () => {
+        setModalOpen(false)
+    }
+
+    const handleOpenModal = () => {
+        setModalOpen(true)
+    }
+
     const handleClose = () => {
         setAnchorEl(null);
     };
     return (
-        <div className={classes.titleBarRoot}>
-            <img src={vanOnlogo} className={classes.vanOnlogo} alt={'Van On logo'} onClick={() => { history.push('/dashboard') }} />
-            {props.isAuthenticated && (
-                <div>
-                    {/* <IconButton
-                        aria-label="account of current user"
-                        aria-controls="menu-appbar"
-                        aria-haspopup="true"
-                        onClick={handleMenu}
-                        color="inherit"
-                        style={{ padding: '5px 20px 5px 5px' }}
-                    >
-                        <div className={classes.profileIcon}>{props.username.charAt(0).toUpperCase()}</div>
-                    </IconButton>
-                    <Menu
-                        id="menu-appbar"
-                        anchorEl={anchorEl}
-                        anchorOrigin={{
-                            vertical: 'top',
-                            horizontal: 'right',
-                        }}
-                        keepMounted
-                        transformOrigin={{
-                            vertical: 'top',
-                            horizontal: 'right',
-                        }}
-                        open={open}
-                        onClose={handleClose}
-                    >
-                        <MenuItem onClick={() => { handleClose(); props.history.push('/login') }}>Log out</MenuItem>
-                    </Menu> */}
-                </div>
-            )}
-        </div>
+        <span>
+            <div className={classes.titleBarRoot}>
+                <img src={vanOnlogo} className={classes.vanOnlogo} alt={'Van On logo'} onClick={() => { history.push('/dashboard') }} />
+                {props.isAuthenticated && (
+                    <div>
+                        <IconButton
+                            aria-label="account of current user"
+                            aria-controls="menu-appbar"
+                            aria-haspopup="true"
+                            onClick={handleMenu}
+                            color="inherit"
+                            style={{ padding: '5px 20px 5px 5px' }}
+                        >
+                            <div className={classes.profileIcon}>{props.username.charAt(0).toUpperCase()}</div>
+                        </IconButton>
+                        <Menu
+                            id="menu-appbar"
+                            anchorEl={anchorEl}
+                            anchorOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                            }}
+                            keepMounted
+                            transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                            }}
+                            open={open}
+                            onClose={handleClose}
+                        >
+                            <MenuItem onClick={() => { handleClose(); handleOpenModal() }}>Change Password</MenuItem>
+                            <MenuItem onClick={() => { handleClose(); props.history.push('/login') }}>Log out</MenuItem>
+                        </Menu>
+                    </div>
+                )}
+            </div>
+            <Modal
+                handleClose={handleCloseModal}
+                open={modalOpen}
+                modalfor={"Project"}
+                title={"Change Password"}
+            />
+        </span>
     );
 }
 
