@@ -26,6 +26,7 @@ const styles = (theme) => ({
         marginTop: '8px',
         marginLeft: '12px',
         fontWeight: 'bold',
+        whiteSpace: 'nowrap',
     },
 });
 
