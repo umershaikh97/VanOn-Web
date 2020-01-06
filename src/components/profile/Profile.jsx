@@ -21,15 +21,41 @@ const styles = () => ({
         backgroundColor: 'rgb(229, 222, 222)',
         borderRadius: '4px',
         width: '100%',
-        height: 'calc(100vh - 165px)',
+        maxHeight: 'calc(100vh - 165px)',
+        padding: '20px 30px',
+    },
+    fieldContainer: {
+        display: 'flex',
+        justifyContent: 'flex-start',
+        marginBottom: 20,
+    },
+    label: {
+        fontWeight: 'bold',
+        width: 150,
+        fontSize: 15,
+    },
+    input: {
+        fontSize: 15,
+        width: 210,
     },
 });
 
 
 const Profile = (props) => {
     const { classes } = props;
-    const [vendorData, setVendorData] = useState({});
-    const [adminData, setAdminData] = useState({});
+    const [firstName, setFirstName] = useState('Umer');
+    const [lastName, setLastName] = useState('Shaikh');
+    const [email, setEmail] = useState('umershaikh305@gmail.com');
+    const [phone, setPhone] = useState('0348-9097792');
+    const [nic, setNic] = useState('42101-4225740-5');
+
+    const data = [
+        { label: 'First Name', value: 'Umer' },
+        { label: 'Last Name', value: 'Shaikh' },
+        { label: 'Email', value: 'umershaikh305@gmail.com' },
+        { label: 'Phone no.', value: '0348-9097792' },
+        { label: 'CNIC', value: '42101-4225740-5' },
+    ]
 
 
     return (
@@ -37,9 +63,93 @@ const Profile = (props) => {
             <div className={classes.contentContainer}>
                 <Typography variant="h3" inherit className={classes.Heading}>Profile</Typography>
 
-                <div className={classes.card}>
+                {/* <div className={classes.card}>
+                    <div>
+                        {
+                            data.map((field, index) => (
+                                <div className={classes.fieldContainer}>
+                                    <Typography variant="subtitle2" gutterBottom className={classes.label}>
+                                        {field.label}
+                                    </Typography>
+                                    <Typography variant="subtitle2" gutterBottom className={classes.value}>
+                                        {field.value}
+                                    </Typography>
+                                </div>
+                            )
+                            )}
+                    </div>
+                </div> */}
 
+                <div className={classes.card}>
+                    <div>
+                        <div className={classes.fieldContainer}>
+                            <Typography variant="subtitle2" className={classes.label}>
+                                First Name
+                            </Typography>
+                            <input
+                                type={"text"}
+                                value={firstName}
+                                onChange={(value) => { setFirstName(value) }}
+                                className={classes.input}
+                                disabled
+                            />
+                        </div>
+
+                        <div className={classes.fieldContainer}>
+                            <Typography variant="subtitle2" className={classes.label}>
+                                Last Name
+                            </Typography>
+                            <input
+                                type={"text"}
+                                value={lastName}
+                                onChange={(value) => { setLastName(value) }}
+                                className={classes.input}
+                                disabled
+                            />
+                        </div>
+
+                        <div className={classes.fieldContainer}>
+                            <Typography variant="subtitle2" className={classes.label}>
+                                Email
+                            </Typography>
+                            <input
+                                type={"text"}
+                                value={email}
+                                onChange={(value) => { setEmail(value) }}
+                                className={classes.input}
+                                disabled
+                            />
+                        </div>
+
+                        <div className={classes.fieldContainer}>
+                            <Typography variant="subtitle2" className={classes.label}>
+                                Phone no.
+                            </Typography>
+                            <input
+                                type={"text"}
+                                value={phone}
+                                onChange={(value) => { setPhone(value) }}
+                                className={classes.input}
+                                disabled
+                            />
+                        </div>
+
+                        <div className={classes.fieldContainer}>
+                            <Typography variant="subtitle2" className={classes.label}>
+                                NIC
+                            </Typography>
+                            <input
+                                type={"text"}
+                                value={nic}
+                                onChange={(value) => { setNic(value) }}
+                                className={classes.input}
+                                disabled
+                            />
+                        </div>
+
+                    </div>
                 </div>
+
 
             </div>
         </div>
