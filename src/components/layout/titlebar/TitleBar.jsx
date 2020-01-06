@@ -80,7 +80,7 @@ const TitleBar = (props) => {
                             color="inherit"
                             style={{ padding: '5px 20px 5px 5px' }}
                         >
-                            <div className={classes.profileIcon}>{props.username.charAt(0).toUpperCase()}</div>
+                            {/* <div className={classes.profileIcon}>{props.username.charAt(0).toUpperCase()}</div> */}
                         </IconButton>
                         <Menu
                             id="menu-appbar"
