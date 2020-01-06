@@ -21,7 +21,7 @@ const styles = () => ({
         backgroundColor: 'rgb(229, 222, 222)',
         borderRadius: '4px',
         width: '100%',
-        height: 410,
+        height: 'calc(100vh - 165px)',
     },
 });
 
