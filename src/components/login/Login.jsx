@@ -13,6 +13,7 @@ import { faUser, faLock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { login, clearAuthReducer, logout } from '../../store/actions/authActions';
 import { connect } from 'react-redux';
+import PulseLoader from "react-spinners/PulseLoader";
 
 const styles = () => ({
     root: {
@@ -114,7 +115,7 @@ const Login = (props) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [rememberMe, setRemember] = useState(false);
-    const { classes, loginError } = props;
+    const { classes, loginError, isLoading } = props;
 
     const handleSubmit = (e) => {
         props.login({ username, password })
@@ -205,9 +206,17 @@ const Login = (props) => {
                             </Typography>
                             </div>
                             <Button className={classes.raisedBtn} color="primary" onClick={handleSubmit}
-                                disabled={username.length < 1 || password.length < 5} classes={{ disabled: classes.loginDisabled }} >
-                                Log in
-                        </Button>
+                                disabled={username.length < 1 || password.length < 5} classes={{ disabled: classes.loginDisabled }}>
+                                {isLoading ?
+                                    <PulseLoader
+                                        size={7}
+                                        color={'white'}
+                                        loading={true}
+                                    />
+                                    :
+                                    'Log in'
+                                }
+                            </Button>
                         </div>
                     </div>
                 </div>
@@ -220,6 +229,7 @@ const mapStateToProps = (state) => {
     return {
         loginError: state.authReducer.loginError,
         isAuthenticated: state.authReducer.isAuthenticated,
+        isLoading: state.authReducer.isLoading,
     }
 }
 const mapDispatchToProps = (dispatch) => {
