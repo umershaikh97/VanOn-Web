@@ -25,10 +25,12 @@ const ManageAdmins = (props) => {
     const { classes, updateAdminData } = props;
     const [state, setState] = useState({
         headers: [
-            { title: 'Name', field: 'name' },
             { title: 'Email', field: 'email', type: 'string' },
-            { title: 'Phone #', field: 'phone', type: 'number' },
-            { title: 'CNIC', field: 'cnic' },
+            { title: 'First name', field: 'firstName' },
+            { title: 'Last name', field: 'lastName' },
+            { title: 'Password', field: 'password', type: 'string' },
+            { title: 'Phone #', field: 'phoneNumber', type: 'number' },
+            { title: 'CNIC', field: 'cnicId' },
         ],
         data: [],
     });
@@ -51,7 +53,7 @@ const ManageAdmins = (props) => {
                     data={state.data}
                     editable={{
                         onRowAdd: newData =>
-                            new Promise(resolve => {
+                            new Promise((resolve, reject) => {
                                 setTimeout(() => {
                                     resolve();
                                     setState(prevState => {
@@ -62,7 +64,7 @@ const ManageAdmins = (props) => {
                                 }, 600);
                             }),
                         onRowUpdate: (newData, oldData) =>
-                            new Promise(resolve => {
+                            new Promise((resolve, reject) => {
                                 setTimeout(() => {
                                     resolve();
                                     if (oldData) {
@@ -75,7 +77,7 @@ const ManageAdmins = (props) => {
                                 }, 600);
                             }),
                         onRowDelete: oldData =>
-                            new Promise(resolve => {
+                            new Promise((resolve, reject) => {
                                 setTimeout(() => {
                                     resolve();
                                     setState(prevState => {
