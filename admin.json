@@ -1,5 +1,13 @@
 [
 	{
+		"email": "umershaikh@vanon.com",
+		"firstName": "Umer",
+		"lastName": "Shaikh",
+		"password": "123456",
+		"phoneNumber": "03489097792",
+		"cnicId": "42101-4225256-5"
+	},
+	{
 		"email": "spepperill0@de.vu",
 		"firstName": "Shela",
 		"lastName": "Pepperill",
