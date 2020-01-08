@@ -6,7 +6,7 @@ const initialState = {
     password: '',
     loginError: '',
     isLoading: false,
-    user: localStorage.getItem('vanon:user') ? localStorage.getItem('vanon:user') : {},
+    user: localStorage.getItem('vanon:user') ? JSON.parse(localStorage.getItem('vanon:user')) : '',
 }
 
 const authReducer = (state = initialState, action) => {
@@ -18,12 +18,11 @@ const authReducer = (state = initialState, action) => {
         case 'LOGIN_FAILED': {
             localStorage.removeItem('vanon:token');
             localStorage.removeItem('vanon:role');
-            localStorage.removeItem('vanon:user');
             return { ...state, loginError: action.payload, isLoading: false }
         }
         case 'LOGIN_SUCCESS': {
             localStorage.setItem('vanon:role', action.payload.role);
-            localStorage.setItem('vanon:user', action.payload.data);
+            localStorage.setItem('vanon:user', JSON.stringify(action.payload.data));
             return { ...state, isLoading: false, isAuthenticated: true, role: action.payload.role, user: { ...action.payload.data } }
         }
         case 'SAVE_TOKEN': {
@@ -34,7 +33,7 @@ const authReducer = (state = initialState, action) => {
             localStorage.removeItem('vanon:token');
             localStorage.removeItem('vanon:role');
             localStorage.removeItem('vanon:user');
-            return { ...state, isAuthenticated: false }
+            return { ...state, isAuthenticated: false, token: '', role: '', user: '' }
         case 'CLEAR_AUTH_REDUCER':
             return { ...state, loginError: '' }
         default:
