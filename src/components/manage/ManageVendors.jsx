@@ -23,10 +23,12 @@ const ManageVendors = (props) => {
     const { classes } = props;
     const [state, setState] = useState({
         headers: [
-            { title: 'Name', field: 'name' },
             { title: 'Email', field: 'email', type: 'string' },
-            { title: 'Phone #', field: 'phone', type: 'number' },
-            { title: 'CNIC', field: 'cnic' },
+            { title: 'First name', field: 'firstName' },
+            { title: 'Last name', field: 'lastName' },
+            { title: 'Password', field: 'password', type: 'string' },
+            { title: 'Phone #', field: 'phoneNumber', type: 'number' },
+            { title: 'CNIC', field: 'cnicId' },
         ],
         data: [],
     });
