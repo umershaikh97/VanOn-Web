@@ -24,14 +24,15 @@ const ManageDrivers = (props) => {
     const { classes } = props;
     const [state, setState] = useState({
         headers: [
-            { title: 'Name', field: 'name' },
+            { title: 'First name', field: 'firstName' },
+            { title: 'Last name', field: 'lastName' },
             { title: 'Email', field: 'email', type: 'string' },
-            { title: 'Phone #', field: 'phone', type: 'number' },
-            { title: 'CNIC', field: 'cnic' },
-            { title: 'License #', field: 'license' },
-            { title: 'Van #', field: 'van' },
+            { title: 'Password', field: 'password', type: 'string' },
+            { title: 'Phone #', field: 'phoneNumber', type: 'number' },
+            { title: 'CNIC', field: 'cnicId' },
+            { title: 'Van #', field: 'vanNumber' },
+            { title: 'License #', field: 'licenseNumber' },
             { title: 'Area', field: 'area' },
-            { title: 'Vendor ID', field: 'v_id' },
         ],
         data: [],
     });
