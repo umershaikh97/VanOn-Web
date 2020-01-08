@@ -46,7 +46,7 @@ const styles = () => ({
 
 
 const Settings = (props) => {
-    const { classes } = props;
+    const { user, classes } = props;
     const [firstName, setFirstName] = useState('Umer');
     const [lastName, setLastName] = useState('Shaikh');
     const [email, setEmail] = useState('umershaikh305@gmail.com');
@@ -60,6 +60,16 @@ const Settings = (props) => {
         { label: 'Phone no.', value: '0348-9097792' },
         { label: 'CNIC', value: '42101-4225740-5' },
     ]
+
+    useEffect(() => {
+        if (user) {
+            setFirstName(user.name.firstName);
+            setLastName(user.name.lastName);
+            setEmail(user.details.email);
+            setPhone(user.details.phoneNumber);
+            setNic(user.details.cnicId);
+        }
+    }, [])
 
 
     return (
@@ -76,7 +86,6 @@ const Settings = (props) => {
                             <input
                                 type={"text"}
                                 value={firstName}
-                                onChange={(value) => { setFirstName(value) }}
                                 className={classes.input}
                                 disabled
                             />
@@ -89,7 +98,6 @@ const Settings = (props) => {
                             <input
                                 type={"text"}
                                 value={lastName}
-                                onChange={(value) => { setLastName(value) }}
                                 className={classes.input}
                                 disabled
                             />
@@ -102,7 +110,7 @@ const Settings = (props) => {
                             <input
                                 type={"text"}
                                 value={email}
-                                onChange={(value) => { setEmail(value) }}
+                                onChange={(e) => { setEmail(e.target.value) }}
                                 className={classes.input}
                             />
                         </div>
@@ -114,7 +122,7 @@ const Settings = (props) => {
                             <input
                                 type={"text"}
                                 value={phone}
-                                onChange={(value) => { setPhone(value) }}
+                                onChange={(e) => { setPhone(e.target.value) }}
                                 className={classes.input}
                             />
                         </div>
@@ -126,7 +134,7 @@ const Settings = (props) => {
                             <input
                                 type={"text"}
                                 value={nic}
-                                onChange={(value) => { setNic(value) }}
+                                onChange={(e) => { setNic(e.target.value) }}
                                 className={classes.input}
                             />
                         </div>
@@ -136,6 +144,7 @@ const Settings = (props) => {
                                 className={classes.saveBtn}
                                 onClick={() => { }}
                                 variant="outlined"
+                                disabled={!Boolean(nic && phone && email)}
                             >
                                 Save
                             </Button>
@@ -151,7 +160,7 @@ const Settings = (props) => {
 
 const mapStateToProps = (state) => {
     return {
-        //loginError: state.authReducer.loginError,
+        user: state.authReducer.user,
         //data: state.adminReducer.data,
     }
 }
