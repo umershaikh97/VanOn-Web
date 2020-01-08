@@ -1,10 +1,38 @@
 const initialState = {
     data: [
-        { name: 'Admin', email: 'admin@vanon.com', phone: '0348-9097792', cnic: '42101-452250053-5' },
-        { name: 'Admin1', email: 'admin1@vanon.com', phone: '0321-2570252', cnic: '42101-42225553-5' },
-        { name: 'Admin2', email: 'admin2@vanon.com', phone: '0333-2570262', cnic: '43401-42224543-2' },
-        { name: 'Admin3', email: 'admin3@vanon.com', phone: '0312-3570252', cnic: '32610-42225553-1' },
-    ]
+        {
+            email: "umershaikh@vanon.com",
+            firstName: "Umer",
+            lastName: "Shaikh",
+            password: "123456",
+            phoneNumber: "03489097792",
+            cnicId: "42101-4225256-5"
+        },
+        {
+            email: "spepperill0@de.vu",
+            firstName: "Shela",
+            lastName: "Pepperill",
+            password: "w0vVjxodtII",
+            phoneNumber: "03347741320",
+            cnicId: "42301-5560256-6"
+        },
+        {
+            email: "hrosthorn1@networkadvertising.org",
+            firstName: "Hunter",
+            lastName: "Rosthorn",
+            password: "JIrgsKmWcbEP",
+            phoneNumber: "03316832660",
+            cnicId: "42301-5293663-5"
+        },
+        {
+            email: "mpidgeley2@live.com",
+            firstName: "Moises",
+            lastName: "Pidgeley",
+            password: "lyaXUjMz",
+            phoneNumber: "03301238523",
+            cnicId: "42301-8070462-2"
+        }
+    ],
 }
 
 const adminReducer = (state = initialState, action) => {
