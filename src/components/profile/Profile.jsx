@@ -42,12 +42,12 @@ const styles = () => ({
 
 
 const Profile = (props) => {
-    const { classes } = props;
-    const [firstName, setFirstName] = useState('Umer');
-    const [lastName, setLastName] = useState('Shaikh');
-    const [email, setEmail] = useState('umershaikh305@gmail.com');
-    const [phone, setPhone] = useState('0348-9097792');
-    const [nic, setNic] = useState('42101-4225740-5');
+    const { user, classes } = props;
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
+    const [nic, setNic] = useState('');
 
     const data = [
         { label: 'First Name', value: 'Umer' },
@@ -57,28 +57,20 @@ const Profile = (props) => {
         { label: 'CNIC', value: '42101-4225740-5' },
     ]
 
+    useEffect(() => {
+        if (user) {
+            setFirstName(user.name.firstName);
+            setLastName(user.name.lastName);
+            setEmail(user.details.email);
+            setPhone(user.details.phoneNumber);
+            setNic(user.details.cnicId);
+        }
+    }, [])
 
     return (
         <div className={classes.root}>
             <div className={classes.contentContainer}>
                 <Typography variant="h3" inherit className={classes.Heading}>Profile</Typography>
-
-                {/* <div className={classes.card}>
-                    <div>
-                        {
-                            data.map((field, index) => (
-                                <div className={classes.fieldContainer}>
-                                    <Typography variant="subtitle2" gutterBottom className={classes.label}>
-                                        {field.label}
-                                    </Typography>
-                                    <Typography variant="subtitle2" gutterBottom className={classes.value}>
-                                        {field.value}
-                                    </Typography>
-                                </div>
-                            )
-                            )}
-                    </div>
-                </div> */}
 
                 <div className={classes.card}>
                     <div>
@@ -158,13 +150,12 @@ const Profile = (props) => {
 
 const mapStateToProps = (state) => {
     return {
-        //loginError: state.authReducer.loginError,
+        user: state.authReducer.user,
         //data: state.adminReducer.data,
     }
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        //updateAdminData: (...args) => dispatch(updateAdminData(...args))
         // login: (...args) => dispatch(login(...args)),
         // logout: (...args) => dispatch(logout(...args)),
         // clearAuthReducer: (...args) => dispatch(clearAuthReducer(...args))
