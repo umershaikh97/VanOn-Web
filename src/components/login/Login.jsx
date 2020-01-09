@@ -66,7 +66,8 @@ const styles = () => ({
     },
     formGroup: {
         display: 'flex',
-        justifyContent: 'space-between',
+        justifyContent: 'flex-start',
+        //justifyContent: 'space-between',
         alignItems: 'center',
         marginLeft: 8,
         width: 365,
@@ -201,9 +202,9 @@ const Login = (props) => {
                                     control={<Checkbox value={rememberMe} onChange={() => { setRemember(!rememberMe) }} className={classes.checkBoxRoot} />}
                                     label="Remember Me" classes={{ label: classes.rememberMeLabel }}
                                 />
-                                <Typography variant="body1" className={classes.forgotPasswordTxt} onClick={() => { console.log(rememberMe) }} >
+                                {/* <Typography variant="body1" className={classes.forgotPasswordTxt} onClick={() => { console.log(rememberMe) }} >
                                     Forgot Password?
-                            </Typography>
+                            </Typography> */}
                             </div>
                             <Button className={classes.raisedBtn} color="primary" onClick={handleSubmit}
                                 disabled={username.length < 1 || password.length < 5} classes={{ disabled: classes.loginDisabled }}>
