@@ -60,7 +60,7 @@ const SideBarContent = (props) => {
                     <span className={classes.itemText}>Dashboard</span>
                 </div>
             </MenuItem>
-            <MenuItem
+            {/* <MenuItem
                 button={true}
                 onClick={() => { history.push('/messages'); setSelectedItem('messages') }}
                 selected={selectedItem.includes('messages')}
@@ -71,7 +71,7 @@ const SideBarContent = (props) => {
                     <Message />
                     <span className={classes.itemText}>Messages</span>
                 </div>
-            </MenuItem>
+            </MenuItem> */}
             <MenuItem
                 button={true}
                 onClick={() => { history.push('/profile'); setSelectedItem('profile') }}
