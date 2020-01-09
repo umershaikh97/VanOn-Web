@@ -10,6 +10,9 @@ import DriveEtaTwoToneIcon from '@material-ui/icons/DriveEtaTwoTone';
 import EmojiPeopleTwoToneIcon from '@material-ui/icons/EmojiPeopleTwoTone';
 import ManageCard from './ManageCard';
 import Map from '../google maps/Map';
+import socketClient from 'socket.io-client';
+import { API } from '../../API';
+import { checkKeyInObject } from '../../utils/utils';
 
 const styles = (theme) => ({
     root: ROOT_STYLE,
@@ -33,10 +36,9 @@ const styles = (theme) => ({
     }
 });
 
-const GOOGLE_MAP_API_KEY = "AIzaSyA-41EtEUCUy54AwBKs9CdnsGJtD1NYMMI";
 
 const Dashboard = (props) => {
-    const { classes, role } = props;
+    const { classes, role, user } = props;
     const [viewport, _setViewPort] = useState({
         latitude: 24.814563,
         longitude: 67.080013,
@@ -45,13 +47,35 @@ const Dashboard = (props) => {
         zoom: 10
     });
 
-    const [vanData, setVanData] = useState([
-        { VAN_ID: '01', DriverName: 'Muhammad Bilal', VanNumPlate: 'BBW-1534', coordinates: [67.076030, 24.815351] },
-        { VAN_ID: '02', DriverName: 'Kumail Abbas', VanNumPlate: 'LAI-3224', coordinates: [67.045736, 24.857238] },
-        { VAN_ID: '03', DriverName: 'Hussain Feroz', VanNumPlate: 'BAA-1125', coordinates: [67.088510, 24.911562] },
-        { VAN_ID: '04', DriverName: 'Umer Shaikh', VanNumPlate: 'BCW-2628', coordinates: [67.079123, 24.814461] },
-    ])
+    const [vanData, setVanData] = useState([]);
 
+    let socket = null;
+    useEffect(() => {
+        socket = socketClient.connect(API);
+        if (role === 'vendor') {
+            if (checkKeyInObject(user, '_id')) {
+                socket.on(`vendor-${user._id}`, (vanLocation) => {
+                    let tempVanData = vanData;
+                    let temp = vanData.findIndex((van) => { return van.driverId === vanLocation.driverId });
+                    if (temp === -1) {
+                        tempVanData.push(vanLocation);
+                        setVanData([...tempVanData]);
+                    }
+                    else {
+                        tempVanData[temp].coordinates = vanLocation.coordinates;
+                        setVanData([...tempVanData]);
+                    }
+                })
+            }
+        }
+        else {
+
+        }
+
+        return () => {
+            socket.disconnect();
+        }
+    }, [])
 
     return (
         <div className={classes.root}>
@@ -116,6 +140,7 @@ const mapStateToProps = (state) => {
     return {
         //loginError: state.authReducer.loginError,
         role: state.authReducer.role,
+        user: state.authReducer.user,
     }
 }
 const mapDispatchToProps = (dispatch) => {
