@@ -52,9 +52,9 @@ const Map = (props) => {
                 trackUserLocation={true}
             />
             {
-                vanData.map((van) => (
+                vanData.map((van, index) => (
                     <Marker
-                        key={van.VAN_ID}
+                        key={index}
                         longitude={van.coordinates[0]}
                         latitude={van.coordinates[1]}
                     >
@@ -79,11 +79,11 @@ const Map = (props) => {
                 >
                     <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                         <p style={{ fontWeight: 'bold' }}>Driver Name: </p>
-                        <p style={{ paddingLeft: '6px' }}>{selectedVan.DriverName}</p>
+                        <p style={{ paddingLeft: '6px' }}>{selectedVan.driverName}</p>
                     </span>
                     <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                         <p style={{ fontWeight: 'bold', }}>Van Reg#: </p>
-                        <p style={{ paddingLeft: '6px', }}>{selectedVan.VanNumPlate}</p>
+                        <p style={{ paddingLeft: '6px', }}>{selectedVan.vanNumber}</p>
                     </span>
                 </Popup>)
                 :
