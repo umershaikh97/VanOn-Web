@@ -69,7 +69,18 @@ const Dashboard = (props) => {
             }
         }
         else {
-
+            socket.on(`admin`, (vanLocation) => {
+                let tempVanData = vanData;
+                let temp = vanData.findIndex((van) => { return van.driverId === vanLocation.driverId });
+                if (temp === -1) {
+                    tempVanData.push(vanLocation);
+                    setVanData([...tempVanData]);
+                }
+                else {
+                    tempVanData[temp].coordinates = vanLocation.coordinates;
+                    setVanData([...tempVanData]);
+                }
+            })
         }
 
         return () => {
